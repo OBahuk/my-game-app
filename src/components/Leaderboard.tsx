@@ -1,8 +1,9 @@
+import { CREATORS } from '../routes';
 import Image from 'next/image';
 import { getRawgData } from '../apiHandlers';
-import { CREATORS } from '../routes';
 
 import { Creator } from "../types";
+import React from "react";
 
 const Leaderboard: React.FC = async () => {
     let creators: Creator[] = [];

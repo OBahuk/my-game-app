@@ -1,6 +1,5 @@
 "use client"
 import React, { ReactNode } from 'react';
-import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 
 import Navbar from './Navbar';
@@ -11,7 +10,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, title = 'Game App' }) => {
-    const session = useSession();
+    //const session = useSession();
 
     return (
         <div className="flex flex-col min-h-screen">
