@@ -2,13 +2,13 @@ import { CREATORS } from '../routes';
 import Image from 'next/image';
 import { getRawgData } from '../apiHandlers';
 
-import { Creator } from "../types";
+import { Creator, CreatorResponseData } from "../types";
 import React from "react";
 
 const Leaderboard: React.FC = async () => {
     let creators: Creator[] = [];
     try {
-        creators = await getRawgData<Creator[]>(CREATORS, 12);
+        creators = (await getRawgData<CreatorResponseData>(CREATORS, 12)).results;
     } catch (error) {
         return (
             <div>

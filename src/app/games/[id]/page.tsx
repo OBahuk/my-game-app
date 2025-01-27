@@ -1,16 +1,25 @@
-import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import { Game } from "../../../types";
+import { getRawgData } from "../../../apiHandlers";
+import {GAMES} from "../../../routes";
+import React from "react";
 
-async function getGameDetails(id: string) {
-    const res = await fetch(`https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`);
-    if (!res.ok) {
-        notFound();
+export default async function GamePage({ params }: Promise<{ id: string }>) {
+    const { id } = await params
+
+    let game: Game | null = null;
+    try {
+        game = await getRawgData<Game>(`${GAMES}/${id}`, 12);
+    } catch (error) {
+        return (
+            <div>
+                <h2 className="text-2xl font-bold">Error loading data:</h2>
+                <div className="text-red-500">{error.message}</div>
+                <p>Try to reload page</p>
+            </div>
+        );
     }
-    return res.json();
-}
 
-export default async function GamePage({ params }: { params: { id: string } }) {
-    const game = await getGameDetails(params.id);
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold mb-4">{game.name}</h1>

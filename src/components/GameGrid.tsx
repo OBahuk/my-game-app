@@ -1,5 +1,5 @@
 import GameCard from './GameCard';
-import { Game } from '../types';
+import { Game, GamesResponseData } from '../types';
 import { getRawgData } from '../apiHandlers';
 import { GAMES } from '../routes';
 
@@ -7,7 +7,7 @@ export default async function GameGrid() {
     let games: Game[] = [];
 
     try {
-        games = await getRawgData<Game[]>(GAMES, 12);
+        games = (await getRawgData<GamesResponseData>(GAMES, 12)).results;
     } catch (error) {
         return (
             <div>

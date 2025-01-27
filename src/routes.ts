@@ -4,6 +4,8 @@ export const GAMES = "/games";
 export const PURCHASE = "/purchase";
 export const CREATORS = "/creators";
 
+export const RAWG_BASE_URL = "https://api.rawg.io/api";
+
 export const ROUTES = [
     {
         href: HOME,
