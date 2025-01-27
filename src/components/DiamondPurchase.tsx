@@ -14,13 +14,13 @@ const DiamondPurchase: React.FC = () => {
                 setDiamonds(parseInt(storedDiamonds, 10));
             }
         }
-    }, [session]);
+    }, [session, itemName]);
 
     useEffect(() => {
        if (session) {
             localStorage.setItem(itemName, diamonds.toString());
        }
-    }, [diamonds, session]);
+    }, [diamonds, session, itemName]);
 
     const handlePurchase = (amount: number) => {
         setDiamonds(prevDiamonds => prevDiamonds + amount);

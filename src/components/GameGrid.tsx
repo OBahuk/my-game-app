@@ -8,11 +8,13 @@ export default async function GameGrid() {
 
     try {
         games = (await getRawgData<GamesResponseData>(GAMES, 12)).results;
-    } catch (error) {
+    } catch (error: unknown) {
         return (
             <div>
                 <h2 className="text-2xl font-bold">Error loading games:</h2>
-                <div className="text-red-500">{error.message}</div>
+                <div className="text-red-500">
+                    {error instanceof Error ? error.message : JSON.stringify(error)}
+                </div>
                 <p>Try to reload page</p>
             </div>
         );

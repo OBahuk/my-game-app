@@ -1,19 +1,19 @@
-import { CREATORS } from '../routes';
-import Image from 'next/image';
-import { getRawgData } from '../apiHandlers';
-
-import { Creator, CreatorResponseData } from "../types";
 import React from "react";
+import Image from 'next/image';
+
+import { CREATORS } from '../routes';
+import { getRawgData } from '../apiHandlers';
+import { Creator, CreatorResponseData } from "../types";
 
 const Leaderboard: React.FC = async () => {
     let creators: Creator[] = [];
     try {
         creators = (await getRawgData<CreatorResponseData>(CREATORS, 12)).results;
-    } catch (error) {
+    } catch (error: unknown) {
         return (
             <div>
                 <h2 className="text-2xl font-bold">Error loading creators:</h2>
-                <div className="text-red-500">{error.message}</div>
+                <div className="text-red-500">{error instanceof Error ? error.message : JSON.stringify(error)}</div>
                 <p>Try to reload page</p>
             </div>
         );

@@ -1,46 +1,25 @@
-import Image from 'next/image';
-import { Game } from "../../../types";
-import { getRawgData } from "../../../apiHandlers";
-import {GAMES} from "../../../routes";
 import React from "react";
+import { NextPage } from 'next';
+import Layout from '../../../components/Layout';
+import GameItem from '../../../components/GameItem';
 
-export default async function GamePage({ params }: Promise<{ id: string }>) {
+interface Params {
+    id: string
+}
+
+interface GamePageProps {
+    params: Promise<Params>
+}
+
+const GamePage: NextPage<GamePageProps> = async ({ params }: GamePageProps) => {
     const { id } = await params
 
-    let game: Game | null = null;
-    try {
-        game = await getRawgData<Game>(`${GAMES}/${id}`, 12);
-    } catch (error) {
-        return (
-            <div>
-                <h2 className="text-2xl font-bold">Error loading data:</h2>
-                <div className="text-red-500">{error.message}</div>
-                <p>Try to reload page</p>
-            </div>
-        );
-    }
-
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-4">{game.name}</h1>
-            <div className="grid md:grid-cols-2 gap-8">
-                <div className="relative h-96">
-                    <Image
-                        src={game.background_image}
-                        alt={game.name}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        className="rounded-lg"
-                    />
-                </div>
-                <div>
-                    <p className="text-lg mb-4">{game.description_raw}</p>
-                    <p className="mb-2"><strong>Released:</strong> {new Date(game.released).toLocaleDateString()}</p>
-                    <p className="mb-2"><strong>Rating:</strong> {game.rating}/5</p>
-                    <p className="mb-2"><strong>Platforms:</strong> {game.platforms.map(p => p.platform.name).join(', ')}</p>
-                    <p className="mb-2"><strong>Genres:</strong> {game.genres.map(g => g.name).join(', ')}</p>
-                </div>
-            </div>
-        </div>
+        <Layout title="Game | Game App">
+            <h1 className="text-3xl font-bold mb-6 text-center">Game</h1>
+            <GameItem id={id} />
+        </Layout>
     );
-}
+};
+
+export default GamePage;
