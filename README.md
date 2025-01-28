@@ -16,21 +16,28 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#Implementation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+###State Management:
+The  React's built-in state management (useState, useContext) used only. There is no such complexity to use a separate state management library like Redux.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+###Data Fetching:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+App using a combination of server-side rendering (SSR) and static site generation (SSG), main page being pre-rendered at build time, while others need fresh data on each request.
 
-## Deploy on Vercel
+###Middleware:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To protect certain routes, a custom middleware is implemented. This middleware checks if the user is authenticated before allowing access to the route.
+Not sure if it is best practice to use middleware in Next.js, but it is a good way to protect routes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+##Possible Improvements:
+
+- Add a loading spinner when fetching data.
+- Add a 404 page for invalid routes and pages for other errors.
+- Make authentication form in popup/modal insted of redirecting to another page.
+- Make a module for api error handling.
+- Add a module for form validation.
+- Add a unit tests for components and pages.
+- Make api routes to proxy requests to the actual RAWG api server to avoid CORS issues and make possible to use data-fetching from client-side components more secure.
