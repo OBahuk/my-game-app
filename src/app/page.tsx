@@ -1,25 +1,34 @@
-
-import Layout from '../components/Layout';
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import Image from 'next/image';
+import Layout from '../components/Layout';
 import { GAMES, PURCHASE} from "../routes";
+
+import gamesImage from '../../public/cover.png';
 
 const HomePage = () => {
   return (
       <Layout title="Home | Game App">
         <h1 className="text-2xl font-bold mb-4 bg-colo">Welcome to Game App</h1>
-          <Link
-              href={GAMES}
-              className="m-4 inline-block text-center max-w-[440] w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
-          >
-              Here you can check list of available games
-          </Link>
-          <Link
-              href={PURCHASE}
-              className="m-4 inline-block text-center max-w-[440] w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
-          >
-              Here you can buy game currency
-          </Link>
+          <Image
+              src={gamesImage}
+              alt="popular games"
+              className="rounded-lg"
+          />
+          <div className="flex justify-center">
+              <Link
+                  href={GAMES}
+                  className="m-4 inline-block text-center max-w-[440] w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
+              >
+                  List of available games
+              </Link>
+              <Link
+                  href={PURCHASE}
+                  className="m-4 inline-block text-center max-w-[440] w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
+              >
+                  Buy game currency
+              </Link>
+          </div>
         <p className="mb-4">
             We all love games and appreciate the enjoyment they bring, but at the same time, we understand the struggle that sometimes creeps behind even the best of us. Buy video game currency and points and get the boost you need for your character, additional materials, or items that offer useful utilities. You can invest in making your character stronger, maybe increase their level and ease their journey. Or get something to help you craft the perfect armour. And maybe utility is not your priority? Well, your game points can get you plenty of customization options. You may buy outfits, pets, mounts, and a whole array of aesthetic items that will ensure your character stands out in a crowd!
         </p>
