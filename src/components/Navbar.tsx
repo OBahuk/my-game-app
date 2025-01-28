@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
@@ -7,7 +7,10 @@ import { ROUTES } from '../routes'
 
 const Navbar: React.FC = () => {
     const { data: session, status } = useSession();
-    const pathName = usePathname()
+    const pathName = usePathname();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const menuClasses = `${isOpen ? 'block fixed bg-gray-800 top-[60] flex-col ml-0 left-0 sm:static' : 'hidden'}`;
 
     return (
         <nav className="bg-gray-800 text-white">
@@ -17,7 +20,7 @@ const Navbar: React.FC = () => {
                         <Link href="/" className="text-xl font-bold">
                             Game App
                         </Link>
-                        <div className="ml-10 flex items-baseline space-x-4">
+                        <div className={`ml-10 flex items-baseline space-x-4 sm:block ${menuClasses}`}>
                             {ROUTES.map(({href, name}) => (
                                 <Link
                                     key={name}
@@ -34,7 +37,7 @@ const Navbar: React.FC = () => {
                             <p>Loading...</p>
                         ) : session ? (
                             <>
-                                <span className="mr-4">Hello, {session.user?.name}</span>
+                                <span className="mr-4 hidden sm:block">Hi, {session.user?.name}</span>
                                 <button
                                     onClick={() => signOut()}
                                     className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
@@ -50,6 +53,9 @@ const Navbar: React.FC = () => {
                                 Sign In
                             </button>
                         )}
+                    </div>
+                    <div className="flex items-center sm:hidden">
+                        <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? "X" : "III"}</button>
                     </div>
                 </div>
             </div>
